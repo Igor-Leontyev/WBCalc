@@ -11,57 +11,63 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.math.roundToLong
 
 class MainActivity : AppCompatActivity() {
-    val procentNalog: Double = 7.0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var nameThing: String
+        val nameThing: String
 
         val btnResult = findViewById<Button>(R.id.btn_result)
+
         val btnDelete = findViewById<Button>(R.id.btn_delete)
-        var tv_resulit = findViewById<TextView>(R.id.tv_result)
+
+        val tv_resulit = findViewById<TextView>(R.id.tv_result)
+
         val edPriceFirst = findViewById<EditText>(R.id.ed_priceFirst)
         val edPriceSecond = findViewById<EditText>(R.id.ed_priceSecond)
         val edNumber = findViewById<EditText>(R.id.ed_number)
         val edProcent = findViewById<EditText>(R.id.ed_procent)
         val edPriceLogistic = findViewById<EditText>(R.id.ed_priceLogistic)
+
         val btnSave = findViewById<ImageButton>(R.id.btn_save)
 
+        var calcResult = CalcResult()
 
+        var priceFirst    = ""
+        var priceSecond   = ""
+        var number        = ""
+        var procent       = ""
+        var priceLogistic = ""
 
+         fun isFieldsFill() : Boolean {
+             priceFirst    = edPriceFirst.text.toString()
+             priceSecond   = edPriceSecond.text.toString()
+             number        = edNumber.text.toString()
+             procent       = edProcent.text.toString()
+             priceLogistic = edPriceLogistic.text.toString()
+
+            return (!isEmpty(priceFirst) && !isEmpty(priceSecond)  && !isEmpty(number)
+                    && !isEmpty(procent)  && !isEmpty(priceLogistic))
+        }
+
+        /* Calc result handler */
         btnResult.setOnClickListener {
-            if (!isEmpty(edNumber.text.toString()) && !isEmpty(edPriceFirst.text.toString())  && !isEmpty(edPriceSecond.text.toString())
-                && !isEmpty(edProcent.text.toString())  && !isEmpty(edPriceLogistic.text.toString())
-            ) {
+            if (isFieldsFill()) {
 
-                var zacupka: Double = edPriceFirst.text.toString().toDouble() * edNumber.text.toString().toDouble()
-                var priceLogistic: Double =
-                    edPriceLogistic.text.toString().toDouble() * edNumber.text.toString().toDouble()
-                var spin: Double = edPriceSecond.text.toString().toDouble() * edNumber.text.toString().toDouble()
-                var allProc: Double = 1 - ((procentNalog + edProcent.text.toString().toDouble()) / 100)
-
-                var fullMony: Double = ((edPriceSecond.text.toString().toDouble() * allProc)
-                        - edPriceLogistic.text.toString().toDouble()
-                        - edPriceFirst.text.toString().toDouble()) * edNumber.text.toString().toDouble()
-
-                var marginality: Double = ((fullMony / spin) * 100)
-                var nalog: Double = spin * (procentNalog / 100)
-                var marketComis: Double = spin * (edProcent.text.toString().toDouble() / 100)
-                var oneThingCosts: Double = fullMony / edNumber.text.toString().toDouble()
+                calcResult.calcState(priceFirst, priceSecond, number, procent, priceLogistic)
 
                 tv_resulit.setText(
-                    "\n  Маржинальност : ${marginality.roundToLong()}%" +
-                            "\n  Оборот : ${spin.roundToLong()} руб" +
-                            "\n  Прибыль c одного товара : ${oneThingCosts} руб" +
-                            "\n  Общая чистая прибыль : ${fullMony.roundToLong()} руб" +
-                            "\n  Комиссия маркетплейса : ${marketComis.roundToLong()} " +
-                            "\n  Затраты на логистику : ${priceLogistic.roundToLong()} руб" +
-                            "\n  Затраты на закупку : ${zacupka.roundToLong() } руб " +
-                            "\n  Налог : ${nalog.roundToLong()} руб"
+                    "\n  Маржинальност : ${calcResult.marginality}%" +
+                            "\n  Оборот : ${calcResult.moneyTurnOver} руб" +
+                            "\n  Прибыль c одного товара : ${calcResult.oneThingProfit} руб" +
+                            "\n  Общая чистая прибыль : ${calcResult.fullProfit} руб" +
+                            "\n  Комиссия маркетплейса : ${calcResult.mp_taxes} " +
+                            "\n  Затраты на логистику : ${calcResult.logicsticCosts} руб" +
+                            "\n  Затраты на закупку : ${calcResult.buyCosts } руб " +
+                            "\n  Налог : ${calcResult.taxes} руб"
                 )
             } else {
                 tv_resulit.setText(" ЗАПОЛНИТЕ ВСЕ ПОЛЯ ")
@@ -77,13 +83,18 @@ class MainActivity : AppCompatActivity() {
             tv_resulit.setText("")
         })
 
+        //                      calcResult.marginality = marginality.roundToLong()
+//                      calcResult.moneyTurnOver = spin.roundToLong()
+//                      calcResult.oneThingProfit = oneThingCosts.roundToLong()
+//                      calcResult.fullProfit = fullMony.roundToLong()
+//                      calcResult.mp_taxes = marketComis.roundToLong()
+//                      calcResult.logicsticCosts = priceLogistic.roundToLong()
+//                      calcResult.buyCosts = zacupka.roundToLong()
+//                      calcResult.taxes = nalog.roundToLong()
+
+        /* Open saving dialog */
         btnSave.setOnClickListener() {
-            if (!isEmpty(edNumber.text.toString()) &&
-                !isEmpty(edPriceFirst.text.toString()) &&
-                !isEmpty(edPriceSecond.text.toString()) &&
-                !isEmpty(edProcent.text.toString()
-                ) && !isEmpty(edPriceLogistic.text.toString())
-            ) {
+            if (isFieldsFill()) {
                 var diolog = Dialog(this)
                 diolog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 diolog.setContentView(R.layout.activity_diolog)
@@ -100,10 +111,15 @@ class MainActivity : AppCompatActivity() {
 
                 val btnSaveName = diolog.findViewById<Button>(R.id.btn_save_name)
 
-              btnSaveName.setOnClickListener() {
+                /* Save in DataBase */
+                btnSaveName.setOnClickListener() {
 
                   if(!isEmpty(edNameThing.text.toString())){
-                      nameThing = edNameThing.text.toString()
+
+//                      nameThing = edNameThing.text.toString()
+
+                      /* Create stuff entity */
+
                       diolog.dismiss()
                   }
                   else{
