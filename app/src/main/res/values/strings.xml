@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">WBcalc</string>
+    <string name="firstPrice">введите цену закупки</string>
+    <string name="secondPrice">введите цену продажи</string>
+    <string name="numbers">введите количество товара</string>
+    <string name="procent">введите процент маркетплейса</string>
+    <string name="logistic">введите цену доставки</string>
+    <string name="result">результат</string>
+    <string name="delete">обновить</string>
+    <string name="namething">название товара</string>
+    <string name="savename">сохронить</string>
+    <string name="task">Для сохранения товара введите его название</string>
+</resources>

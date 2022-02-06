@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Admin/Desktop/WBcalc/app/src/main/res/drawable-v24/btn_create_nopress.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc/app/src/main/res/drawable-v24/btn_create_press.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc/app/src/main/res/drawable-v24/two_style_btn.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc2/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc3/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc402/app/src/main/res/drawable-v24/btn_create_nopress.xml" value="0.3828125" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc402/app/src/main/res/drawable-v24/btn_create_press.xml" value="0.3828125" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc402/app/src/main/res/drawable-v24/two_style_btn.xml" value="0.3828125" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc402/app/src/main/res/layout/activity_diolog.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Admin/Desktop/WBcalc402/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
