@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         /* Calc result handler */
+        /**//**//**//**///-**/--/////***
         btnResult.setOnClickListener {
             if (isFieldsFilled()) {
 
