@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val nameThing: String
+        var nameThing: String
 
         val btnResult = findViewById<Button>(R.id.btn_result)
 
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         var procent       = ""
         var priceLogistic = ""
 
-         fun isFieldsFill() : Boolean {
+         fun isFieldsFilled() : Boolean {
              priceFirst    = edPriceFirst.text.toString()
              priceSecond   = edPriceSecond.text.toString()
              number        = edNumber.text.toString()
@@ -55,9 +55,11 @@ class MainActivity : AppCompatActivity() {
 
         /* Calc result handler */
         btnResult.setOnClickListener {
-            if (isFieldsFill()) {
+            if (isFieldsFilled()) {
 
-                calcResult.calcState(priceFirst, priceSecond, number, procent, priceLogistic)
+                if(!calcResult.isCalculated){
+                    calcResult.calcState(priceFirst, priceSecond, number, procent, priceLogistic)
+                }
 
                 tv_resulit.setText(
                     "\n  Маржинальност : ${calcResult.marginality}%" +
@@ -80,6 +82,9 @@ class MainActivity : AppCompatActivity() {
             edProcent.text = null
             edPriceLogistic.text = null
             edPriceSecond.text = null
+
+            calcResult.reset()
+
             tv_resulit.setText("")
         })
 
@@ -94,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
         /* Open saving dialog */
         btnSave.setOnClickListener() {
-            if (isFieldsFill()) {
+            if (isFieldsFilled()) {
                 var diolog = Dialog(this)
                 diolog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 diolog.setContentView(R.layout.activity_diolog)
@@ -114,21 +119,23 @@ class MainActivity : AppCompatActivity() {
                 /* Save in DataBase */
                 btnSaveName.setOnClickListener() {
 
-                  if(!isEmpty(edNameThing.text.toString())){
+                    if(!isEmpty(edNameThing.text.toString())){
 
-//                      nameThing = edNameThing.text.toString()
+                       nameThing = edNameThing.text.toString()
+                       if(!calcResult.isCalculated){
+                           calcResult.calcState(priceFirst, priceSecond, number, procent, priceLogistic)
+                       }
 
-                      /* Create stuff entity */
+                       /* Create stuff entity */
 
-                      diolog.dismiss()
-                  }
-                  else{
-                      tvInfo.setText("введите название товара")
-                  }
+                       diolog.dismiss()
+                    }
+                    else{
+                        tvInfo.setText("введите название товара")
+                    }
 
-            }
+                }
                 diolog.show()
-
             }
             else{
                 tv_resulit.setText(" ЗАПОЛНИТЕ ВСЕ ПОЛЯ ")

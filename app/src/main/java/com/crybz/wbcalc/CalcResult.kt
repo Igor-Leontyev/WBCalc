@@ -40,4 +40,8 @@ class CalcResult {
         isCalculated   = true
     }
 
+    fun reset(){
+        isCalculated   = false
+    }
+
 }
