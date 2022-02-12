@@ -36,44 +36,62 @@ class MainActivity : AppCompatActivity() {
 
         var calcResult = CalcResult()
 
-        var priceFirst    = ""
-        var priceSecond   = ""
-        var number        = ""
-        var procent       = ""
+        var priceFirst = ""
+        var priceSecond = ""
+        var number = ""
+        var procent = ""
         var priceLogistic = ""
 
-         fun isFieldsFilled() : Boolean {
-             priceFirst    = edPriceFirst.text.toString()
-             priceSecond   = edPriceSecond.text.toString()
-             number        = edNumber.text.toString()
-             procent       = edProcent.text.toString()
-             priceLogistic = edPriceLogistic.text.toString()
+        fun isFieldsFilled(): Boolean {
+            priceFirst = edPriceFirst.text.toString()
+            priceSecond = edPriceSecond.text.toString()
+            number = edNumber.text.toString()
+            procent = edProcent.text.toString()
+            priceLogistic = edPriceLogistic.text.toString()
 
-            return (!isEmpty(priceFirst) && !isEmpty(priceSecond)  && !isEmpty(number)
-                    && !isEmpty(procent)  && !isEmpty(priceLogistic))
+            return (!isEmpty(priceFirst) && !isEmpty(priceSecond) && !isEmpty(number)
+                    && !isEmpty(procent) && !isEmpty(priceLogistic))
         }
 
         /* Calc result handler */
         /**//**//**//**///-**/--/////***
         btnResult.setOnClickListener {
             if (isFieldsFilled()) {
-
-                if(!calcResult.isCalculated){
+                if (!calcResult.isCalculated) {
                     calcResult.calcState(priceFirst, priceSecond, number, procent, priceLogistic)
+                    calcResult.isCalculated = false
                 }
 
-                tv_resulit.setText(
-                    "\n  Маржинальност : ${calcResult.marginality}%" +
-                            "\n  Оборот : ${calcResult.moneyTurnOver} руб" +
-                            "\n  Прибыль c одного товара : ${calcResult.oneThingProfit} руб" +
-                            "\n  Общая чистая прибыль : ${calcResult.fullProfit} руб" +
-                            "\n  Комиссия маркетплейса : ${calcResult.mp_taxes} " +
-                            "\n  Затраты на логистику : ${calcResult.logicsticCosts} руб" +
-                            "\n  Затраты на закупку : ${calcResult.buyCosts } руб " +
-                            "\n  Налог : ${calcResult.taxes} руб"
-                )
-            } else {
-                tv_resulit.setText(" ЗАПОЛНИТЕ ВСЕ ПОЛЯ ")
+
+                if (calcResult.changeTextInMainactivity || calcResult.isZeroInput ) {
+                    if (calcResult.isZeroInput){
+                        tv_resulit.setText("нельзя использовать ноль '0' в вычеслениях")
+                        calcResult.isZeroInput = false
+                    }
+                    else{
+                        tv_resulit.setText(" Введены недопустимые символы или значения ")
+                        calcResult.changeTextInMainactivity = false
+
+                    }
+
+
+                }
+
+                else if (!calcResult.changeTextInMainactivity) {
+                    tv_resulit.setText(
+                        "\n  Маржинальност : ${calcResult.marginality}%" +
+                                "\n  Оборот : ${calcResult.moneyTurnOver} руб" +
+                                "\n  Прибыль c одного товара : ${calcResult.oneThingProfit} руб" +
+                                "\n  Общая чистая прибыль : ${calcResult.fullProfit} руб" +
+                                "\n  Комиссия маркетплейса : ${calcResult.mp_taxes} " +
+                                "\n  Затраты на логистику : ${calcResult.logicsticCosts} руб" +
+                                "\n  Затраты на закупку : ${calcResult.buyCosts} руб " +
+                                "\n  Налог : ${calcResult.taxes} руб"
+                    )
+                }
+            }
+            else {
+                tv_resulit.setText(" Заполните все поля ")
             }
         }
 
@@ -111,7 +129,7 @@ class MainActivity : AppCompatActivity() {
                 val tvInfo = diolog.findViewById<TextView>(R.id.tv_info_diolog)
 
                 val btnClose = diolog.findViewById<Button>(R.id.btn_close)
-                btnClose.setOnClickListener(){
+                btnClose.setOnClickListener() {
                     diolog.dismiss()
                 }
 
@@ -120,25 +138,23 @@ class MainActivity : AppCompatActivity() {
                 /* Save in DataBase */
                 btnSaveName.setOnClickListener() {
 
-                    if(!isEmpty(edNameThing.text.toString())){
+                    if (!isEmpty(edNameThing.text.toString())) {
 
-                       nameThing = edNameThing.text.toString()
-                       if(!calcResult.isCalculated){
-                           calcResult.calcState(priceFirst, priceSecond, number, procent, priceLogistic)
-                       }
+                        nameThing = edNameThing.text.toString()
+                        if (!calcResult.isCalculated) {
+                            calcResult.calcState(priceFirst, priceSecond, number, procent, priceLogistic)
+                        }
 
-                       /* Create stuff entity */
+                        /* Create stuff entity */
 
-                       diolog.dismiss()
-                    }
-                    else{
+                        diolog.dismiss()
+                    } else {
                         tvInfo.setText("введите название товара")
                     }
 
                 }
                 diolog.show()
-            }
-            else{
+            } else {
                 tv_resulit.setText(" ЗАПОЛНИТЕ ВСЕ ПОЛЯ ")
             }
         }

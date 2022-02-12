@@ -10,6 +10,9 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity
+                android:name=".RecView"
+                android:exported="true"/>
+        <activity
                 android:name=".DiologActivity"
                 android:exported="true"/>
         <activity
