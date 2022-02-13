@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (calcResult.changeTextInMainactivity || calcResult.isZeroInput ) {
                     if (calcResult.isZeroInput){
-                        tv_resulit.setText("нельзя использовать ноль '0' в вычеслениях")
+                        tv_resulit.setText("количество товара не может быть ноль '0'")
                         calcResult.isZeroInput = false
                     }
                     else{
