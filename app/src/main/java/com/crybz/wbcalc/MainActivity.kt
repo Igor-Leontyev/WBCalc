@@ -1,6 +1,7 @@
 package com.crybz.wbcalc
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -11,20 +12,24 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.crybz.wbcalc.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
 
+
+    var recView = RecView()
+
+    var calcResultForSave:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         var nameThing: String
 
         val btnResult = findViewById<Button>(R.id.btn_result)
 
         val btnDelete = findViewById<Button>(R.id.btn_delete)
+        val btnNotes = findViewById<ImageButton>(R.id.btn_notes)
 
         val tv_resulit = findViewById<TextView>(R.id.tv_result)
 
@@ -55,6 +60,14 @@ class MainActivity : AppCompatActivity() {
                     && !isEmpty(procent) && !isEmpty(priceLogistic))
         }
 
+        btnNotes.setOnClickListener() {
+            recView.listSaveName.add("jhlkjhkj")//edNameThing.text.toString()
+            recView.listSaveDataCalc.add("KKJMLLKJLKJ")//calcResultForSave
+            val intent = Intent(this, recView::class.java)
+// start your next activity
+            startActivity(intent)
+        }
+
         /* Calc result handler */
         /**//**//**//**///-**/--/////***
         btnResult.setOnClickListener {
@@ -65,21 +78,18 @@ class MainActivity : AppCompatActivity() {
                 }
 
 
-                if (calcResult.changeTextInMainactivity || calcResult.isZeroInput ) {
-                    if (calcResult.isZeroInput){
+                if (calcResult.changeTextInMainactivity || calcResult.isZeroInput) {
+                    if (calcResult.isZeroInput) {
                         tv_resulit.setText("количество товара не может быть ноль '0'")
                         calcResult.isZeroInput = false
-                    }
-                    else{
+                    } else {
                         tv_resulit.setText(" Введены недопустимые символы или значения ")
                         calcResult.changeTextInMainactivity = false
 
                     }
 
 
-                }
-
-                else if (!calcResult.changeTextInMainactivity) {
+                } else if (!calcResult.changeTextInMainactivity) {
                     tv_resulit.setText(
                         "\n  Маржинальност : ${calcResult.marginality}%" +
                                 "\n  Оборот : ${calcResult.moneyTurnOver} руб" +
@@ -90,12 +100,14 @@ class MainActivity : AppCompatActivity() {
                                 "\n  Затраты на закупку : ${calcResult.buyCosts} руб " +
                                 "\n  Налог : ${calcResult.taxes} руб"
                     )
+                    calcResultForSave = tv_resulit.text.toString()
                 }
-            }
-            else {
+            } else {
                 tv_resulit.setText(" Заполните все поля ")
             }
         }
+
+
 
         btnDelete.setOnClickListener({
             edNumber.text = null
@@ -121,6 +133,7 @@ class MainActivity : AppCompatActivity() {
         /* Open saving dialog */
         btnSave.setOnClickListener() {
             if (isFieldsFilled()) {
+
                 var diolog = Dialog(this)
                 diolog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 diolog.setContentView(R.layout.activity_diolog)
@@ -135,6 +148,7 @@ class MainActivity : AppCompatActivity() {
                     diolog.dismiss()
                 }
 
+
                 val btnSaveName = diolog.findViewById<Button>(R.id.btn_save_name)
 
                 /* Save in DataBase */
@@ -142,9 +156,10 @@ class MainActivity : AppCompatActivity() {
 
                     if (!isEmpty(edNameThing.text.toString())) {
 
-                        nameThing = edNameThing.text.toString()
                         if (!calcResult.isCalculated) {
-                            calcResult.calcState(priceFirst, priceSecond, number, procent, priceLogistic)
+                            calcResult.calcState(priceFirst, priceSecond, number, procent, priceLogistic)//ошибка скореее всего в этом методе
+                            calcResult.isCalculated = false
+
                         }
 
                         /* Create stuff entity */

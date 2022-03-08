@@ -5,12 +5,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".RecView" android:background="@drawable/wb_fon">
+        tools:context=".RecView" android:background="@drawable/wb_fon" android:id="@+id/layRec">
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
             android:layout_height="0dp" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="1dp" android:layout_marginEnd="1dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="1dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="1dp" android:id="@+id/rec_view"/>
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="1dp" android:id="@+id/rec_view"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.0"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
