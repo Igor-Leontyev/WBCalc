@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "691461992536",
+    "firebase_url": "https://my-chat-eb26c-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "my-chat-eb26c",
+    "storage_bucket": "my-chat-eb26c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691461992536:android:47d0c60c214d8080a75a2d",
+        "android_client_info": {
+          "package_name": "com.crybz.wbcalc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "691461992536-2s1l2tkrd0rmrclj3pr937nt239dg9km.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3T1nCscl0c1Q7vLHuB8SRH0oBXBaC7JQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "691461992536-2s1l2tkrd0rmrclj3pr937nt239dg9km.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

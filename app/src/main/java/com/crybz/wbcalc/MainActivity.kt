@@ -13,6 +13,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
+
+
 class MainActivity : AppCompatActivity() {
 
 
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        var nameThing: String
+
 
         val btnResult = findViewById<Button>(R.id.btn_result)
 
